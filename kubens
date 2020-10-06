@@ -66,7 +66,7 @@ current_context() {
 }
 
 get_namespaces() {
-  $KUBECTL get namespaces -o=jsonpath='{range .items[*].metadata.name}{@}{"\n"}{end}'
+  rancher namespaces list |awk '{print $1}'|grep -vw "ID"
 }
 
 escape_context_name() {
