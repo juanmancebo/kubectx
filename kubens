@@ -130,15 +130,10 @@ set_namespace() {
   ctx="$(current_context)" || exit_err "error getting current context"
   prev="$(current_namespace)" || exit_error "error getting current namespace"
 
-  if grep -q ^"${1}"\$ <(get_namespaces); then
-    switch_namespace "${ctx}" "${1}"
+  switch_namespace "${ctx}" "${1}"
 
-    if [[ "${prev}" != "${1}" ]]; then
-      save_namespace "${ctx}" "${prev}"
-    fi
-  else
-    echo "error: no namespace exists with name \"${1}\".">&2
-    exit 1
+  if [[ "${prev}" != "${1}" ]]; then
+    save_namespace "${ctx}" "${prev}"
   fi
 }
 
